@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>Fisne Dashboard</title>
+        <link rel="stylesheet" href="ui.css">
+    </head>
+    <body>
+        <main class="main-container">
+            <h1>Fisne Dashboard</h1>
+            <div>
+                Current IP: <a id="ip">Unknown</a>
+            </div>
+            <div>
+                <a>Latency (ms): </a>
+                <input id="latency" value="-1">
+            </div>
+            <div>
+                <a class="button" onclick="load_params()">Refresh</a>
+                <a class="button" onclick="post_params()">Apply</a>
+            </div>
+        </main>
+        <script src="ui.js"></script>
+    </body>
+</html>

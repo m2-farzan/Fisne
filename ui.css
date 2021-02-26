@@ -1,0 +1,25 @@
+body {
+    font-family: monospace;
+    color: rgb(46, 46, 46);
+    background-color: lightblue;
+    font-size: larger;
+}
+
+div {
+    display: block;
+    margin: 0.5cm 0cm;
+}
+
+main {
+    margin: 2cm;
+    border-style: double;
+    background-color: white;
+    padding: 1cm;
+}
+
+.button {
+    border-style: double;
+    padding: .1cm;
+    cursor: pointer;
+    background-color: lightgoldenrodyellow;
+}
