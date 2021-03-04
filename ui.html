@@ -14,6 +14,58 @@
                 <input id="latency" value="-1">
             </div>
             <div>
+                <a>Jitter (ms): </a>
+                <input id="jitter" value="-1">
+            </div>
+            <div>
+                <a>Latency distribution</a>
+                <select id="dist">
+                    <option value="normal">Normal</option>
+                    <option value="uniform">Uniform</option>
+                    <option value="pareto">Pareto</option>
+                    <option value="paretonormal">Pareto-normal</option>
+                </select>
+            </div>
+            <div>
+                <a>Bandwidth (kbps): </a>
+                <input id="rate" value="-1">
+            </div>
+            <div>
+                <a>Loss model</a>
+                <select id="loss_model" onchange="loss_model_changed()">
+                    <option value="random">Independent random</option>
+                    <option value="gi">GI model</option>
+                </select>
+            </div>
+            <div id="loss-random-options">
+                <div>
+                    <a>Loss Probability (%): </a>
+                    <input id="loss" value="-1">
+                </div>
+            </div>
+            <div id="loss-gi-options">
+                <div>
+                    <a>Loss probability (0-1): </a>
+                    <input id="P" value="-1">
+                </div>
+                <div>
+                    <a>Mean burst length (# of packets): </a>
+                    <input id="E_B" value="-1">
+                </div>
+                <div>
+                    <a>Loss density within the burst (0-1): </a>
+                    <input id="rho" value="-1">
+                </div>
+                <div>
+                    <a>Isolated loss probability (0-1): </a>
+                    <input id="P_isol" value="-1">
+                </div>
+                <div>
+                    <a>Mean good burst length (# of packets): </a>
+                    <input id="E_GB" value="-1">
+                </div>
+            </div>
+            <div>
                 <a class="button" onclick="load_params()">Refresh</a>
                 <a class="button" onclick="post_params()">Apply</a>
             </div>

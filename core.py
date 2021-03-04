@@ -8,10 +8,28 @@ def get_my_ip():
     return ips[0]
 
 def update_emulation_engine(params):
-    subprocess.run(
-        f'tc qdisc replace dev eth0 root netem latency {params["latency"]}ms',
-        shell=True
-    )
+    if params['loss_model'] == 'random':
+        loss_cmd = '' if params["loss"] == '0' else f'loss random {params["loss"]}'
+    elif params['loss_model'] == 'gi':
+        P = float(params['P'])
+        E_B = float(params['E_B'])
+        rho = float(params['rho'])
+        P_isol = float(params['P_isol'])
+        E_GB = float(params['E_GB'])
+        p31 = 100 * 1 / (E_B * rho)
+        p13 = 100 * (P - P_isol)/(E_B * (1 - P_isol) * (rho - P))
+        p23 = 100 * 1 / (E_GB)
+        p32 = 100 * (1 - rho) / (rho * E_GB)
+        p14 = 100 * P_isol / (1 - P_isol)
+        loss_cmd = f'loss state {p13} {p31} {p32} {p23} {p14}'
+    cmd = [
+        'tc qdisc replace dev eth0 root netem',
+        f'delay {params["latency"]}ms',
+        '' if params["jitter"] == '0' else f'{params["jitter"]}ms distribution {params["dist"]}',
+        loss_cmd,
+        '' if params["rate"] == '' else f'rate {params["rate"]}kbit'
+    ]
+    subprocess.run(' '.join(cmd), shell=True)
 
 def init_iptables():
     my_ip = get_my_ip()

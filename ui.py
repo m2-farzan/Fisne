@@ -7,6 +7,12 @@ app = Flask(__name__)
 params = {
     'ip': get_my_ip(),
     'latency': '0',
+    'jitter': '0',
+    'dist': 'normal',
+    'rate': '',
+    'loss_model': 'random',
+    'loss': '0',
+    'P': 0, 'E_B': 10, 'rho': 0.99, 'P_isol': 0, 'E_GB': 60,
 }
 
 @app.route('/')
