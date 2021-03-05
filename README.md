@@ -2,9 +2,9 @@
 
 **F**isne **i**s a **s**imple **n**etwork **e**mulator.
 
-Fisne starts as a docker container. It implements the following functionalities:
+Fisne starts as a docker container, and implements the following functionalities:
 
-1. Opening `<fisne-ip>:90` in a browser, will show a control panel in which network emulation parameters e.g. latency, jitter, etc. can be set.
+1. Opening `<fisne-ip>:90` in a browser will show a control panel in which network emulation parameters e.g. latency, jitter, etc. can be set.
 2. All other packets sent to `<fisne-ip>` (that is, everything except TCP on port 90), will be forwarded back to `localhost`. So if your application is running on `127.0.0.1:80` you can test its performance with emulated network by calling `<fisne-ip>:80`.
 3. Fisne can also route packets that are going to the outside world. You can set `<fisne-ip>` as gateway and call the remote IP. The final effect in this case would be a cumulative result of Fisne emulated effects and real world network effects.
 
@@ -17,15 +17,15 @@ Fisne control panel:
 - [x] Lightweight GUI
 - [x] Latency simulation
   - [x] Fixed Latency
-  - [ ] Stationary random jitter with uniform/normal distribution profile
+  - [x] Stationary random jitter with uniform/normal/Pareto distribution profile
   - [ ] Non-stationary jitter based on experimental data
-- [ ] Packet loss simulation
-  - [ ] Stationary random packet loss with Poisson probability
-  - [ ] Non-stationary packet loss (*bursts*), based on experimental data
+- [x] Packet loss simulation
+  - [x] Stationary random packet loss with independent probability
+  - [x] Non-stationary packet loss (*bursts*), based on a Markov chain model [1]
 - [ ] Packet reordering simulation (As a consequence of jitter)
 - [ ] Packet duplication
-  - [ ] Packet corruption simulation
-- [ ] Bandwidth Limit
+- [ ] Packet corruption
+- [x] Bandwidth Limit
 
 ## Usage
 
@@ -94,6 +94,8 @@ man tc-netem
 
 ## Extra: Installing on VirtualBox
 
+*[This mode is not fully tested.]*
+
 You might want to run Fisne over VB, rather than Docker. In that case, follow these steps:
 
 1. Start with a plain Ubuntu (Ubuntu server will be lighter).
@@ -118,4 +120,10 @@ You might want to run Fisne over VB, rather than Docker. In that case, follow th
    sudo python3 main.py
    ```
 
-   
+## Acknowledgement
+
+Fisne is merely a wrapper around tc-netem, so all the credit should go to Netem devs. Also, loss simulation parameters that are used here were first introduced in ref. [1].
+
+## References
+
+1. Salsano, S., Ludovici, F., Ordine, A., & Giannuzzi, D. (2012). Definition of a general and intuitive loss model for packet networks and its implementation in the Netem module in the Linux kernel. University of Rome «Tor Vergata». Version, 3.
